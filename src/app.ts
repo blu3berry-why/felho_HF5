@@ -8,11 +8,7 @@ const PORT: number = 3000;
 
 app.use(bodyParser.json());
 
-app.use("/hello", movieService);
-
-app.use("/", (req: Request, res: Response): void => {
-  res.send("Hello world!");
-});
+app.use(movieService);
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/vsquvg")

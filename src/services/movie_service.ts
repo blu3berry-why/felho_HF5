@@ -10,18 +10,15 @@ const router = express.Router();
 const movie_filter_id = {
   _id: 0,
   id: 0,
-  title: 1,
-  year: 1,
-  director: 1,
-  actor: 1,
+  __v:0
 };
 
 router.get("/movies", async (req, res, next) => {
   const movies = await Movie.find(
     {},
-    { _id: 0, id: 0, title: 1, year: 1, director: 1, actor: 1 }
+    { _id: 0, id: 0, __v: 0}
   );
-  res.send(movies);
+  res.send({movie :movies});
 });
 
 router.get("/movies/:id", async (req, res, next) => {
