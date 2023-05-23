@@ -72,10 +72,10 @@ router.post("/movies/:id", async (req, res, next) => {
     Movie.create(movie);
     return res.send().status(201);
   } else {
-    dbMovie.title = req.body.title,
-    dbMovie.year = req.body.year,
-    dbMovie.director = dbMovie.director,
-    dbMovie.actor = dbMovie.actor;
+    (dbMovie.title = req.body.title),
+      (dbMovie.year = req.body.year),
+      (dbMovie.director = dbMovie.director),
+      (dbMovie.actor = dbMovie.actor);
 
     dbMovie.save();
   }
@@ -83,18 +83,21 @@ router.post("/movies/:id", async (req, res, next) => {
 });
 
 router.delete("/movies/:id", async (req, res, next) => {
-  await Movie.deleteOne(
-    {id: req.params.id}
-  );
+  await Movie.deleteOne({ id: req.params.id });
   res.send().status(204);
 });
 
 router.get("/movies/find/", async (req, res, next) => {
-  const movies = await Movie.find(
-    {year: req.query.year},
-    { _id: 0, id: 1, title: 0, year: 0, director: 0, actor: 0 }
-  ).sort(String(req.query.orderby)) ?? [];
-  res.send(movies);
+  const movies =
+    (await Movie.find(
+      { year: req.query.year },
+      { _id: 0, id: 1, title: 0, year: 0, director: 0, actor: 0 }
+    ).sort(String(req.query.orderby))) ?? [];
+
+  let mId: number[] = [];
+  movies.forEach((i) => mId.push(i.id));
+
+  res.send({ id: mId });
 });
 
 // Export the router:
